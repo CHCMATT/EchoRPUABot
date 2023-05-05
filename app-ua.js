@@ -20,9 +20,7 @@ var fileName = fileParts[fileParts.length - 1];
 client.once('ready', async () => {
 	console.log(`[${fileName}] The client is starting up!`);
 	mongoose.set("strictQuery", false);
-	mongoose.connect(process.env.MONGO_URI, {
-		keepAlive: true
-	});
+	mongoose.connect(process.env.MONGO_URI);
 	console.log(`[${fileName}] Connected to Mongo!`);
 
 	var commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); // Find all the files in the command folder that end with .js
