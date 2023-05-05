@@ -10,12 +10,12 @@ module.exports.readSummValue = async (summaryName) => {
 	}
 };
 
-module.exports.addOneSumm = async (summaryName) => {
-	await summaryInfo.findOneAndUpdate({ summaryName: summaryName }, { $inc: { value: 1 } }, { upsert: true });
+module.exports.addSummValue = async (summaryName, value) => {
+	await summaryInfo.findOneAndUpdate({ summaryName: summaryName }, { $inc: { value: value } }, { upsert: true })
 };
 
-module.exports.subtractOneSumm = async (summaryName) => {
-	await summaryInfo.findOneAndUpdate({ summaryName: summaryName }, { $inc: { value: -1 } }, { upsert: true });
+module.exports.subtractSummValue = async (summaryName, value) => {
+	await summaryInfo.findOneAndUpdate({ summaryName: summaryName }, { $inc: { value: -value } }, { upsert: true })
 };
 
 module.exports.setSummValue = async (summaryName, newValue) => {

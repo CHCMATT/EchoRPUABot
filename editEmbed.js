@@ -1,24 +1,23 @@
 var dbCmds = require('./dbCmds.js');
 var { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 
+var formatter = new Intl.NumberFormat('en-US', {
+	style: 'currency',
+	currency: 'USD',
+	maximumFractionDigits: 0
+});
+
 module.exports.editEmbed = async (client) => {
-	let countCarsSold = await dbCmds.readSummValue("countCarsSold");
-	let countWeeklyCarsSold = await dbCmds.readSummValue("countWeeklyCarsSold");
+	let overallBalance = await dbCmds.readSummValue("overallBalance");
 
-	// Color Palette: https://coolors.co/palette/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8
+	// Color Palette: https://coolors.co/palette/d8f3dc-b7e4c7-95d5b2-74c69d-52b788-40916c-2d6a4f-1b4332-081c15
 
-	countCarsSold = countCarsSold.toString();
-	countWeeklyCarsSold = countWeeklyCarsSold.toString();
+	overallBalance = formatter.format(overallBalance);
 
-	var carsSoldEmbed = new EmbedBuilder()
-		.setTitle('Amount of Cars Sold:')
-		.setDescription(countCarsSold)
-		.setColor('#00B4D8');
-
-	var weeklyCarsSoldEmbed = new EmbedBuilder()
-		.setTitle('Amount of Cars Sold This Week:')
-		.setDescription(countWeeklyCarsSold)
-		.setColor('#48CAE4');
+	var currentBalanceEmbed = new EmbedBuilder()
+		.setTitle('Current Balance:')
+		.setDescription(overallBalance)
+		.setColor('2D6A4F');
 
 	var currEmbed = await dbCmds.readMsgId("embedMsg");
 
@@ -27,30 +26,20 @@ module.exports.editEmbed = async (client) => {
 
 	var btnRows = addBtnRows();
 
-	currMsg.edit({ embeds: [carsSoldEmbed, weeklyCarsSoldEmbed], components: btnRows });
+	currMsg.edit({ embeds: [currentBalanceEmbed], components: btnRows });
 };
 
 function addBtnRows() {
 	var row1 = new ActionRowBuilder().addComponents(
 		new ButtonBuilder()
-			.setCustomId('addRegularCarSale')
-			.setLabel('Add a Regular Car Sale')
-			.setStyle(ButtonStyle.Success),
-
-		new ButtonBuilder()
-			.setCustomId('addSportsCarSale')
-			.setLabel('Add a Sports Car Sale')
-			.setStyle(ButtonStyle.Success),
-
-		new ButtonBuilder()
-			.setCustomId('addTunerCarSale')
-			.setLabel('Add a Tuner Car Sale')
-			.setStyle(ButtonStyle.Success),
-
-		new ButtonBuilder()
-			.setCustomId('addEmployeeSale')
-			.setLabel('Add an Employee Sale')
+			.setCustomId('addCarSale')
+			.setLabel('Add a Car Sale')
 			.setStyle(ButtonStyle.Primary),
+
+		new ButtonBuilder()
+			.setCustomId('addCarPurchase')
+			.setLabel('Add a Car Purchase')
+			.setStyle(ButtonStyle.Secondary),
 	);
 
 	var rows = [row1];

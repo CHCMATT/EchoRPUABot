@@ -4,39 +4,39 @@ module.exports.btnPressed = async (interaction) => {
 	try {
 		var buttonID = interaction.customId;
 		switch (buttonID) {
-			case 'addRegularCarSale':
-				var addRegularCarSaleModal = new ModalBuilder()
-					.setCustomId('addRegularCarSaleModal')
-					.setTitle('Log a regular car that you sold');
+			case 'addCarSale':
+				var addCarSaleModal = new ModalBuilder()
+					.setCustomId('addCarSaleModal')
+					.setTitle('Log a car that you sold');
 				var soldToInput = new TextInputBuilder()
 					.setCustomId('soldToInput')
 					.setLabel("Who did you sell the car to?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('Ashlynn Waves')
+					.setPlaceholder('Bobby Brantley')
 					.setRequired(true);
 				var vehicleNameInput = new TextInputBuilder()
 					.setCustomId('vehicleNameInput')
 					.setLabel("What is the vehicle name?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('Sentinel Convertible')
+					.setPlaceholder('Blista')
 					.setRequired(true);
 				var vehiclePlateInput = new TextInputBuilder()
 					.setCustomId('vehiclePlateInput')
 					.setLabel("What was the car's license plate?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('040C0491')
+					.setPlaceholder('5J4A76J1')
 					.setRequired(true);
 				var priceInput = new TextInputBuilder()
 					.setCustomId('priceInput')
 					.setLabel("What was the final sale price?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('30000')
+					.setPlaceholder('5500')
 					.setRequired(true);
 				var notesInput = new TextInputBuilder()
 					.setCustomId('notesInput')
 					.setLabel("Any notes to include about this sale?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('First purchase discount')
+					.setPlaceholder('Loyal customer discount')
 					.setRequired(false);
 
 				var soldToInputRow = new ActionRowBuilder().addComponents(soldToInput);
@@ -45,101 +45,55 @@ module.exports.btnPressed = async (interaction) => {
 				var priceInputRow = new ActionRowBuilder().addComponents(priceInput);
 				var notesInputRow = new ActionRowBuilder().addComponents(notesInput);
 
-				addRegularCarSaleModal.addComponents(soldToInputRow, vehicleNameInputRow, vehiclePlateInputRow, priceInputRow, notesInputRow);
+				addCarSaleModal.addComponents(soldToInputRow, vehicleNameInputRow, vehiclePlateInputRow, priceInputRow, notesInputRow);
 
-				await interaction.showModal(addRegularCarSaleModal);
+				await interaction.showModal(addCarSaleModal);
 				break;
-			case 'addSportsCarSale':
-				var addSportsCarSaleModal = new ModalBuilder()
-					.setCustomId('addSportsCarSaleModal')
-					.setTitle('Log a sports car that you sold');
-				var soldToInput = new TextInputBuilder()
-					.setCustomId('soldToInput')
-					.setLabel("Who did you sell the car to?")
+			case 'addCarPurchase':
+				var addCarPurchaseModal = new ModalBuilder()
+					.setCustomId('addCarPurchaseModal')
+					.setTitle('Log a car that you purchased');
+				var boughtFromInput = new TextInputBuilder()
+					.setCustomId('boughtFromInput')
+					.setLabel("Who did you buy the car from?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('Hennessey Stax')
+					.setPlaceholder('Dimples Rivera')
 					.setRequired(true);
 				var vehicleNameInput = new TextInputBuilder()
 					.setCustomId('vehicleNameInput')
 					.setLabel("What is the vehicle name?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('Komoda')
+					.setPlaceholder('F620')
 					.setRequired(true);
 				var vehiclePlateInput = new TextInputBuilder()
 					.setCustomId('vehiclePlateInput')
-					.setLabel("What was the car's license plate?")
+					.setLabel("What is the car's license plate?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('J09IN4E7')
+					.setPlaceholder('8R3N061S4')
 					.setRequired(true);
 				var priceInput = new TextInputBuilder()
 					.setCustomId('priceInput')
-					.setLabel("What was the final sale price?")
+					.setLabel("How much did you pay for the car?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('105000')
+					.setPlaceholder('45000')
 					.setRequired(true);
 				var notesInput = new TextInputBuilder()
 					.setCustomId('notesInput')
-					.setLabel("Any notes to include about this sale?")
+					.setLabel("Any notes to include about this purchase?")
 					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('Multiple purchase discount')
+					.setPlaceholder('Vehicle has 1 strike')
 					.setRequired(false);
 
-				var soldToInputRow = new ActionRowBuilder().addComponents(soldToInput);
+				var boughtFromInputRow = new ActionRowBuilder().addComponents(boughtFromInput);
 				var vehicleNameInputRow = new ActionRowBuilder().addComponents(vehicleNameInput);
 				var vehiclePlateInputRow = new ActionRowBuilder().addComponents(vehiclePlateInput);
 				var priceInputRow = new ActionRowBuilder().addComponents(priceInput);
 				var notesInputRow = new ActionRowBuilder().addComponents(notesInput);
 
-				addSportsCarSaleModal.addComponents(soldToInputRow, vehicleNameInputRow, vehiclePlateInputRow, priceInputRow, notesInputRow);
+				addCarPurchaseModal.addComponents(boughtFromInputRow, vehicleNameInputRow, vehiclePlateInputRow, priceInputRow, notesInputRow);
 
-				await interaction.showModal(addSportsCarSaleModal);
+				await interaction.showModal(addCarPurchaseModal);
 				break;
-			case 'addTunerCarSale':
-				var addTunerCarSaleModal = new ModalBuilder()
-					.setCustomId('addTunerCarSaleModal')
-					.setTitle('Log a tuner car that you sold');
-				var soldToInput = new TextInputBuilder()
-					.setCustomId('soldToInput')
-					.setLabel("Who did you sell the car to?")
-					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('Aria Kinsley')
-					.setRequired(true);
-				var vehicleNameInput = new TextInputBuilder()
-					.setCustomId('vehicleNameInput')
-					.setLabel("What is the vehicle name?")
-					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('Dominator ASP')
-					.setRequired(true);
-				var vehiclePlateInput = new TextInputBuilder()
-					.setCustomId('vehiclePlateInput')
-					.setLabel("What was the car's license plate?")
-					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('G4T1N409')
-					.setRequired(true);
-				var priceInput = new TextInputBuilder()
-					.setCustomId('priceInput')
-					.setLabel("What was the final sale price?")
-					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('145000')
-					.setRequired(true);
-				var notesInput = new TextInputBuilder()
-					.setCustomId('notesInput')
-					.setLabel("Any notes to include about this sale?")
-					.setStyle(TextInputStyle.Short)
-					.setPlaceholder('5k discount')
-					.setRequired(false);
-
-				var soldToInputRow = new ActionRowBuilder().addComponents(soldToInput);
-				var vehicleNameInputRow = new ActionRowBuilder().addComponents(vehicleNameInput);
-				var vehiclePlateInputRow = new ActionRowBuilder().addComponents(vehiclePlateInput);
-				var priceInputRow = new ActionRowBuilder().addComponents(priceInput);
-				var notesInputRow = new ActionRowBuilder().addComponents(notesInput);
-
-				addTunerCarSaleModal.addComponents(soldToInputRow, vehicleNameInputRow, vehiclePlateInputRow, priceInputRow, notesInputRow);
-
-				await interaction.showModal(addTunerCarSaleModal);
-				break;
-			case 'addEmployeeSale':
 				var addEmployeeSaleModal = new ModalBuilder()
 					.setCustomId('addEmployeeSaleModal')
 					.setTitle('Log a car that you sold to a fellow employee');
