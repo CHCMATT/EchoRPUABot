@@ -159,7 +159,7 @@ module.exports.btnPressed = async (interaction) => {
 				.setColor('B80600')
 				.setFooter({ text: `${errTime}` })];
 
-			await interaction.client.channels.cache.get(process.env.ERROR_LOG_CHANNEL_ID).send({ embeds: errorEmbed });
+			await interaction.client.channels.cache.get(process.env.ERROR_BOT_LOG_CHANNEL_ID).send({ embeds: errorEmbed });
 		}
 	}
 };
