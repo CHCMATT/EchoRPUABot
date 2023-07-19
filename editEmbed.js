@@ -8,25 +8,46 @@ var formatter = new Intl.NumberFormat('en-US', {
 });
 
 module.exports.editEmbed = async (client) => {
-	let overallBalance = await dbCmds.readSummValue("overallBalance");
+	try {
+		let overallBalance = await dbCmds.readSummValue("overallBalance");
 
-	// Color Palette: https://coolors.co/palette/d8f3dc-b7e4c7-95d5b2-74c69d-52b788-40916c-2d6a4f-1b4332-081c15
+		// Color Palette: https://coolors.co/palette/d8f3dc-b7e4c7-95d5b2-74c69d-52b788-40916c-2d6a4f-1b4332-081c15
 
-	overallBalance = formatter.format(overallBalance);
+		overallBalance = formatter.format(overallBalance);
 
-	var currentBalanceEmbed = new EmbedBuilder()
-		.setTitle('Current Balance:')
-		.setDescription(overallBalance)
-		.setColor('2D6A4F');
+		var currentBalanceEmbed = new EmbedBuilder()
+			.setTitle('Current Balance:')
+			.setDescription(overallBalance)
+			.setColor('2D6A4F');
 
-	var currEmbed = await dbCmds.readMsgId("embedMsg");
+		var currEmbed = await dbCmds.readMsgId("embedMsg");
 
-	var channel = await client.channels.fetch(process.env.EMBED_CHANNEL_ID)
-	var currMsg = await channel.messages.fetch(currEmbed);
+		var channel = await client.channels.fetch(process.env.EMBED_CHANNEL_ID)
+		var currMsg = await channel.messages.fetch(currEmbed);
 
-	var btnRows = addBtnRows();
+		var btnRows = addBtnRows();
 
-	currMsg.edit({ embeds: [currentBalanceEmbed], components: btnRows });
+		currMsg.edit({ embeds: [currentBalanceEmbed], components: btnRows });
+	} catch (error) {
+		if (process.env.BOT_NAME == 'test') {
+			console.error(error);
+		} else {
+			console.log(`Error occured at ${errTime} at file ${fileName}!`);
+			console.error(error);
+
+			let errTime = moment().format('MMMM Do YYYY, h:mm:ss a');;
+			let fileParts = __filename.split(/[\\/]/);
+			let fileName = fileParts[fileParts.length - 1];
+
+			let errorEmbed = [new EmbedBuilder()
+				.setTitle(`An error occured on the ${process.env.BOT_NAME} bot file ${fileName}!`)
+				.setDescription(`\`\`\`${error.toString().slice(0, 2000)}\`\`\``)
+				.setColor('B80600')
+				.setFooter({ text: `${errTime}` })];
+
+			await interaction.client.channels.cache.get(process.env.ERROR_LOG_CHANNEL_ID).send({ embeds: errorEmbed });
+		}
+	}
 };
 
 function addBtnRows() {
