@@ -5,7 +5,7 @@ let startup = require('./startup.js');
 let { google } = require('googleapis');
 let message = require('./dsMessages.js');
 let interact = require('./dsInteractions.js');
-let { Client, Collection, GatewayIntentBits, Partials, time } = require('discord.js');
+let { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 let client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.DirectMessages], partials: [Partials.Channel, Partials.Message, Partials.Reaction] });
 
 client.commands = new Collection();
